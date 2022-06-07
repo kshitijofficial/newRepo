@@ -1,8 +1,6 @@
 const path = require("path");
 
 module.exports = {
-  // See <http://truffleframework.com/docs/advanced/configuration>
-  // to customize your Truffle configuration!
   contracts_build_directory: path.join(__dirname, "client/src/contracts"),
   networks: {
     development: {
@@ -11,9 +9,25 @@ module.exports = {
       network_id: "*", // Match any network id
     },
   },
+  mocha: {
+    useColors: false,
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportFilename: process.env.UNIT_TEST_OUTPUT_FILE + ".json",
+      json: true,
+      html: false,
+    },
+  },
+
+  // Configure your compilers
   compilers: {
     solc: {
-      version: "^0.8.0",
+      version: "native",
+      settings: {
+        optimizer: {
+          enabled: false,
+        },
+      },
     },
   },
 };
